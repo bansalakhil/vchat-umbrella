@@ -9,6 +9,7 @@ defmodule Vchat do
     children = [
       # Start the endpoint when the application starts
       supervisor(Vchat.Endpoint, []),
+      supervisor(Vchat.LinkInfo.Supervisor, []),
       # Start the Ecto repository
       worker(Vchat.Repo, []),
       # Here you could define other workers and supervisors as children

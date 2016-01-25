@@ -189,11 +189,12 @@ defmodule Vchat.ChatChannel do
 
 
     pids = Enum.map(urls, fn(url) ->  
-      get_link_async = Task.async(fn -> get_link_info(socket, url, message)     end)
+      get_link_async = get_link_info(socket, url, message)
+      # get_link_async = Task.async(fn -> get_link_info(socket, url, message)     end)
       # Task.await(get_link_async, 20000)
     end    
     )
-   Enum.map(pids, fn(pid) -> Task.await(pid, 20000) end)
+   # Enum.map(pids, fn(pid) -> Task.await(pid, 20000) end)
 
   end
 
@@ -202,38 +203,50 @@ defmodule Vchat.ChatChannel do
   end
 
   defp get_link_info(socket, url, message) do
-    Logger.debug "@@@@@@@@@@@@@@@   Start: #{url}         @@@@@@@@@@@@@@@@@@@@@@@@@"
-    url 
-      |> Colorful.string(["green", "bright"])
-      |> Logger.debug      
+    link_info = Vchat.LinkInfo.get(url)
+    # IEx.pry
 
-      # Make a request to url and extract title and description 
-      case HTTPoison.get(url, [], follow_redirect: true, max_redirect: 3) do
-        {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-          title_and_desc = body 
-          |> Floki.find("head title, head meta[name=description]")
-
-          title = title_and_desc |> Floki.text()
-
-          description =  case title_and_desc |> Floki.attribute("content") do 
-            [desc] -> desc
-            _ -> nil
-          end
-
-          link_changeset = build_assoc(message, :links, url: url, title: title, description: description)
-          Vchat.Repo.insert(link_changeset)
-          
-          broadcast_link_info(socket, message, title, description, url)
-
-        {:ok, %HTTPoison.Response{status_code: 404}} ->
-          Logger.debug "#{url} Not found :("
-        {:error, %HTTPoison.Error{reason: reason}} ->
-          Logger.debug "#{url} #{reason} :("
-        {:ok, _} ->
-          Logger.debug "#{url}. may be redirect"
-      end
-    Logger.debug "@@@@@@@@@@@@@@@   End: #{url}         @@@@@@@@@@@@@@@@@@@@@@@@@"
+    Enum.each(link_info, fn(info) -> 
+      link_changeset = build_assoc(message, :links, url: info.url, title: info.title, description: info.description)
+      Vchat.Repo.insert(link_changeset)
+      broadcast_link_info(socket, message, info.title, info.description, info.url)
+    end  
+    )
 
   end
+  # defp get_link_info(socket, url, message) do
+  #   Logger.debug "@@@@@@@@@@@@@@@   Start: #{url}         @@@@@@@@@@@@@@@@@@@@@@@@@"
+  #   url 
+  #     |> Colorful.string(["green", "bright"])
+  #     |> Logger.debug      
+
+  #     # Make a request to url and extract title and description 
+  #     case HTTPoison.get(url, [], follow_redirect: true, max_redirect: 3) do
+  #       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+  #         title_and_desc = body 
+  #         |> Floki.find("head title, head meta[name=description]")
+
+  #         title = title_and_desc |> Floki.text()
+
+  #         description =  case title_and_desc |> Floki.attribute("content") do 
+  #           [desc] -> desc
+  #           _ -> nil
+  #         end
+
+  #         link_changeset = build_assoc(message, :links, url: url, title: title, description: description)
+  #         Vchat.Repo.insert(link_changeset)
+          
+  #         broadcast_link_info(socket, message, title, description, url)
+
+  #       {:ok, %HTTPoison.Response{status_code: 404}} ->
+  #         Logger.debug "#{url} Not found :("
+  #       {:error, %HTTPoison.Error{reason: reason}} ->
+  #         Logger.debug "#{url} #{reason} :("
+  #       {:ok, _} ->
+  #         Logger.debug "#{url}. may be redirect"
+  #     end
+  #   Logger.debug "@@@@@@@@@@@@@@@   End: #{url}         @@@@@@@@@@@@@@@@@@@@@@@@@"
+
+  # end
 
 end
