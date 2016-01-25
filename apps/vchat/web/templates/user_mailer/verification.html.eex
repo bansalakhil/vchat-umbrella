@@ -1,0 +1,9 @@
+<p>Hello <%=@user.name%></p>
+
+<p>Welcome to Vchat. Kindly verify your email by clicking on the link below. You'll not be able to login if you haven't verified your email.</p>
+
+<a href = "<%= user_url(@conn, :activate, @user.activation_token)%>" target = "_blank"><%= user_url(@conn, :activate, @user.activation_token)%></a>
+
+<p>
+Thanks, <br>
+Vchat Team,</p>

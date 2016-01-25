@@ -1,0 +1,60 @@
+
+<div class = "col-lg-2">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Users</h3>
+    </div>
+    <div class="panel-body" data-behaviour = 'chat-users'>
+      <ul class="list-group">
+        <li class="list-group-item" data-username = 'chat-lobby'  data-group-name = 'chat-lobby' data-behaviour = 'chat-user' data-chat-type = "group">
+          <span class="badge" data-behaviour = "notification" ></span>
+          <a href = "javascript:void(0);"  >Lobby</a>
+        </li>
+
+        <%= for user <- @users do %>
+        <% cuid = @conn.assigns[:current_user].id %>
+        <% uid = user.id %>
+        <%= if uid == cuid do %>
+        <% hidden = "hidden"%>
+        <% end %>        
+        <li class="list-group-item offline <%= hidden %>" data-group-name="<%= user.username %>" data-username="<%= user.username %>" data-name="<%= user.name %>" data-behaviour = 'chat-user' data-chat-type = "individual" >
+          <span class="badge" data-behaviour = "notification" ></span>
+          <a href = "javascript:void(0);" ><%= user.name %></a>
+        </li>
+        <% end %>
+      </ul>    
+    </div>
+  </div>
+</div>
+
+<div class = "col-lg-10 " data-behaviour = "chat-mbox">
+  <div class="panel panel-primary" id = "chat-lobby-container" data-behaviour = 'mbox-container' data-mbox = 'chat-lobby'>
+    <div class="panel-heading">
+      <h3 class="panel-title">Lobby</h3>
+    </div>
+    <div class="panel-body chat-box" data-behaviour = "mbox">
+
+    </div>
+  </div>
+
+
+  <%= for user <- @users do %>
+  <div class="panel panel-primary" id = "<%= user.username%>-container" data-behaviour = 'mbox-container' data-mbox = "<%= user.username%>">
+    <div class="panel-heading">
+      <h3 class="panel-title"><%= user.name%></h3>
+    </div>
+    <div class="panel-body chat-box" data-behaviour = "mbox">
+
+    </div>
+  </div>  
+  <% end %>
+
+</div>
+
+<div class = "col-lg-10 col-lg-offset-2"  data-behaviour = "msg-form">
+  <div class="well">
+    <textarea data-behaviour = "msg-input" rows= "1" id = "msgInput">
+    </textarea>
+    <i><small>If you post a link, we'll fetch link details and display with the message.</small></i>
+  </div>
+</div>

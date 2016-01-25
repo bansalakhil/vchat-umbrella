@@ -1,0 +1,38 @@
+<div class = "col-lg-3 col-lg-offset-1">
+<%= form_for @changeset, session_path(@conn, :create), [class: "form-horizontal"], fn f -> %>
+  <fieldset>
+    <legend>SignIn</legend>
+  </fieldset>
+
+  <%= if f.errors != [] do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below:</p>
+      <ul>
+        <%= for {attr, message} <- f.errors do %>
+          <li><%= humanize(attr) %> <%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <label for="inputEmail" class="col-lg-2 control-label">Email* </label>
+    <div class="col-lg-10">
+      <%= email_input f, :email, class: "form-control", placeholder: "akhil@xyz.com" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputPassword" class="col-lg-2 control-label">Password*</label>
+    <div class="col-lg-10">
+      <%= password_input f, :password, class: "form-control", placeholder: "******" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-lg-10 col-lg-offset-2">
+      <%= submit "Signin", class: "btn btn-primary" %>
+      <button type="reset" class="btn btn-default">Cancel</button>
+    </div>
+  </div>  
+<% end %>
+</div>

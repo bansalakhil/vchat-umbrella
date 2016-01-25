@@ -1,0 +1,8 @@
+run_erl [2265] Tue Jan  5 11:47:38 2016
+Args before exec of shell:
+run_erl [2265] Tue Jan  5 11:47:38 2016
+argv[0] = sh
+run_erl [2265] Tue Jan  5 11:47:38 2016
+argv[1] = -c
+run_erl [2265] Tue Jan  5 11:47:38 2016
+argv[2] = exec "/home/akhil/elixir/vchat/rel/vchat/bin/vchat" "console"

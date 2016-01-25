@@ -1,0 +1,87 @@
+@media (min-width: 768px) {
+  .container {
+    width: 98%;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 98%;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 98%;
+  }
+}
+
+
+
+
+@media (min-width: 768px) {
+  div.chat-box{
+    height: 300px;
+    overflow-y: scroll;
+  }
+}
+
+@media (min-width: 992px) {
+  div.chat-box{
+    height: 300px;
+    overflow-y: scroll;
+  }
+}
+
+@media (min-width: 1200px) {
+  div.chat-box{
+    height: 500px;
+    overflow-y: scroll;
+  }
+}
+
+.grey-out{
+  color: #ccc;
+}
+
+div.msg-container{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+div.msg{
+  margin-left: 20px;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+#msgInput{
+  width: 100%
+}
+
+.offline a{
+  color: grey;
+}
+
+
+
+.link_info{
+    color: grey;
+    margin: 15px 15px 30px 15px;
+    padding-left: 15px;
+    border-left: 5px solid grey;
+
+}
+
+.link_title{
+  font-size: 115%;
+  font-weight: bold;
+}
+
+.link_url{
+  font-style: italic;
+}
+
+.link_description{
+  margin-top: 5px;
+}
