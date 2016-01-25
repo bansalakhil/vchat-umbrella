@@ -1,9 +1,9 @@
 defmodule Vchat.LinkInfo do
-  @backends [Vchat.LinkInfo.SimpleWebPage,Vchat.LinkInfo.SimpleWebPage]
+  @backends [Vchat.LinkInfo.SimpleWebPage, Vchat.LinkInfo.GetLinkInfo]
 
 
   defmodule Result do
-    defstruct url: nil, title: nil, description: nil, thumbnail: nil, backend: nil
+    defstruct url: nil, title: nil, description: nil, thumbnail: nil, redirections: nil, backend: nil
   end
 
   def get(url, opts \\ []) do

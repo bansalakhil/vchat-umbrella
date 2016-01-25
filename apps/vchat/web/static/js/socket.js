@@ -142,6 +142,10 @@ channel.on("chat:link_info", payload => {
   Chat.addLinkInfo(payload);
 })
 
+channel.on("chat:link_redirections", payload => {
+  payload.description = "Redirects to: " + payload.description.join(", ")
+  Chat.addLinkInfo(payload);
+})
 
 
 var $msgBox = Chat.getMsgBox;

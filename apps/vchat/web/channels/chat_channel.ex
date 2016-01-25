@@ -202,14 +202,23 @@ defmodule Vchat.ChatChannel do
     broadcast! socket, "chat:link_info", %{mid: message.id, title: title, description: description, url: url}
   end
 
+  defp broadcast_link_redirections(socket, message, url, redirections) do
+    broadcast! socket, "chat:link_redirections", %{mid: message.id,  description: redirections, url: url}
+  end
+
   defp get_link_info(socket, url, message) do
     link_info = Vchat.LinkInfo.get(url)
-    # IEx.pry
 
     Enum.each(link_info, fn(info) -> 
-      link_changeset = build_assoc(message, :links, url: info.url, title: info.title, description: info.description)
-      Vchat.Repo.insert(link_changeset)
-      broadcast_link_info(socket, message, info.title, info.description, info.url)
+      if(info.backend == "SimpleWebPage") do
+        link_changeset = build_assoc(message, :links, url: info.url, title: info.title, description: info.description)
+        Vchat.Repo.insert(link_changeset)
+        broadcast_link_info(socket, message, info.title, info.description, info.url)
+      end
+
+      if(info.backend == "GetLinkInfo") do
+        broadcast_link_redirections(socket, message, info.url, info.redirections)
+      end
     end  
     )
 
