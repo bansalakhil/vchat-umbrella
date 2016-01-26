@@ -6,7 +6,7 @@
 import {
   Socket
 }
-from "deps/phoenix/web/static/js/phoenix"
+from "phoenix"
 
 import {
   Chat

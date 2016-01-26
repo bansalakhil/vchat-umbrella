@@ -3,8 +3,10 @@ defmodule Vchat.Mixfile do
 
   def project do
     [app: :vchat,
-     version: "0.0.3",
-     elixir: "~> 1.0",
+     version: "0.0.1",
+     deps_path: "../../deps",
+     lockfile: "../../mix.lock",
+     elixir: "~> 1.2",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -18,7 +20,7 @@ defmodule Vchat.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Vchat, []},
-     applications: [:phoenix, :phoenix_html, :cowboy, :xmerl, :floki, :logger, :gettext,
+     applications: [:phoenix, :phoenix_html, :cowboy, :xmerl, :floki, :logger, :gettext, :link_info,
                     :phoenix_ecto, :mariaex, :mailgun, :comeonin, :connection, :colorful,  :httpoison ]]
   end
 
@@ -30,7 +32,7 @@ defmodule Vchat.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.1.1"},
+    [{:phoenix, "1.1.2"},
      {:phoenix_ecto, "~> 2.0"},
      {:mariaex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.3"},
@@ -42,8 +44,7 @@ defmodule Vchat.Mixfile do
      {:colorful, "~> 0.6.0"},
      { :ex_doc, github: "elixir-lang/ex_doc" },
      {:earmark, ">= 0.0.0"},
-     {:httpoison, "~> 0.8.0"},
-     {:floki, "~> 0.7.1"},
+     {:link_info, in_umbrella: true},
      {:exrm, "~> 1.0.0-rc7"}
    ]
   end

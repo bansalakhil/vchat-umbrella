@@ -29,7 +29,7 @@ exports.config = {
           "web/static/css/jquery-ui-min.css",
           "web/static/css/app.css",
         ]
-      }      
+      }
 
     },
     templates: {
@@ -48,8 +48,6 @@ exports.config = {
   paths: {
     // Dependencies and current project directories to watch
     watched: [
-      "deps/phoenix/web/static",
-      "deps/phoenix_html/web/static",
       "web/static",
       "test/static"
     ],
@@ -73,6 +71,7 @@ exports.config = {
   },
 
   npm: {
-    enabled: true
+    enabled: true,
+    whitelist: ["phoenix", "phoenix_html"]
   }
 };

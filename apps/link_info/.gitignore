@@ -3,5 +3,3 @@
 /deps
 erl_crash.dump
 *.ez
-node_modules
-*.log

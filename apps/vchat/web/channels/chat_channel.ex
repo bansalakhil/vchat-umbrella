@@ -207,7 +207,7 @@ defmodule Vchat.ChatChannel do
   end
 
   defp get_link_info(socket, url, message) do
-    link_info = Vchat.LinkInfo.get(url)
+    link_info = LinkInfo.get(url)
 
     Enum.each(link_info, fn(info) -> 
       if(info.backend == "SimpleWebPage") do
@@ -216,7 +216,7 @@ defmodule Vchat.ChatChannel do
         broadcast_link_info(socket, message, info.title, info.description, info.url)
       end
 
-      if(info.backend == "GetLinkInfo") do
+      if(info.backend == "GetLinkInfo" && length(info.redirections) > 0) do
         broadcast_link_redirections(socket, message, info.url, info.redirections)
       end
     end  
