@@ -22,7 +22,7 @@
   "mariaex": {:hex, :mariaex, "0.6.2"},
   "mimerl": {:hex, :mimerl, "1.0.2"},
   "mochiweb": {:hex, :mochiweb, "2.12.2"},
-  "phoenix": {:hex, :phoenix, "1.1.2"},
+  "phoenix": {:hex, :phoenix, "1.1.4"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "2.0.0"},
   "phoenix_html": {:hex, :phoenix_html, "2.4.0"},
   "phoenix_live_reload": {:hex, :phoenix_live_reload, "1.0.3"},
