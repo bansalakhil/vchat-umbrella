@@ -17,9 +17,9 @@ defmodule LinkInfo.GetLinkInfo do
 
 
     # Make a request to url and extract title and description 
-    info_url = "http://getlinkinfo.com/info?link=" <> url
+    
     result = 
-    case HTTPoison.get(info_url, [], follow_redirect: true, max_redirect: 3) do
+    case HTTPoison.get(get_link_info_url(url), [], follow_redirect: true, max_redirect: 3) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         # IEx.pry
         redirections = body 
@@ -52,6 +52,10 @@ defmodule LinkInfo.GetLinkInfo do
   defp send_result(result, url_ref, owner) do
     results = [%Result{backend: "GetLinkInfo", url: result.url, redirections: result.redirections}]
     send(owner, {:results, url_ref, results})
+  end
+
+  defp get_link_info_url(url) do
+    "http://getlinkinfo.com/info?link=" <> url
   end
 
 end
